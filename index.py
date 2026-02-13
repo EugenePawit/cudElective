@@ -3,45 +3,85 @@ import requests
 import sys
 import pandas as pd
 import json
+import re
 
 with open("links.json") as f:
-   linkData = json.load(f)
-   
-def getGoogleSeet(spreadsheet_id, gid, outFile):
-  url = f'https://docs.google.com/spreadsheets/d/{spreadsheet_id}/export?format=csv&gid={gid}'
-  response = requests.get(url)
-  if response.status_code == 200:
-    filepath = os.path.join(outFile)
-    with open(filepath, 'wb') as f:
-      f.write(response.content)
-      print('CSV file saved to: {}'.format(filepath))    
-  else:
-    print(f'Error downloading Google Sheet: {response.status_code}')
-    sys.exit(1)
+    linkData = json.load(f)
 
-def csvToJson(filePath, outputFile, i):
-    df = pd.read_csv(filePath, encoding='utf-8')
+def extract_ids_from_url(url):
+    spreadsheet_id_match = re.search(r'/d/([a-zA-Z0-9-_]+)', url)
+    gid_match = re.search(r'gid=([0-9]+)', url)
+    
+    s_id = spreadsheet_id_match.group(1) if spreadsheet_id_match else None
+    gid = gid_match.group(1) if gid_match else "0"
+    return s_id, gid
 
-    df = df.rename(columns={
-        'Unnamed: 1': 'code',
-        'Unnamed: 2': 'name',
-        'Unnamed: 3': 'credit',
-        'Unnamed: 4': 'classPerWeek',
-        'Unnamed: 5': 'group',
-        'Unnamed: 6': 'instructor',
-        'Unnamed: 7': 'enrollment',
-        'Unnamed: 8': 'electiveQuantity',
-        'Unnamed: 9': 'updatedElectiveQuantity',
-        'Unnamed: 10': 'classtime',
-        'Unnamed: 11': 'classroom',
-        'Unnamed: 12': 'note',
-        f'ตารางวันและเวลาเรียนรายวิชาเพิ่มเติม สำหรับนักเรียนชั้นมัธยมศึกษาปีที่ {i} ภาคเรียนที่ 2 ปีการศึกษา 2566': 'order'
-    })
+def getGoogleSheet(url, outFile):
+    spreadsheet_id, gid = extract_ids_from_url(url)
+    if not spreadsheet_id:
+        print(f"Could not parse URL: {url}")
+        return False
 
-    df['order'] = pd.to_numeric(df['order'], errors='coerce').astype('Int64')
+    download_url = f'https://docs.google.com/spreadsheets/d/{spreadsheet_id}/export?format=csv&gid={gid}'
+    response = requests.get(download_url)
+    
+    if response.status_code == 200:
+        os.makedirs(os.path.dirname(outFile), exist_ok=True)
+        with open(outFile, 'wb') as f:
+            f.write(response.content)
+            print(f'CSV {outFile}')
+        return True
+    else:
+        print(f'err {response.status_code}')
+        return False
 
-    df = df.ffill()
-    df = df.iloc[:-1]
+def csvToJson(filePath, outputFile, grade_label):
+    df_raw = pd.read_csv(filePath, header=None)
+    
+    day_headers = df_raw.iloc[1, 10:32].ffill().tolist()
+    period_headers = df_raw.iloc[2, 10:32].fillna('').tolist()
+    schedule_labels = [f"{d} {p}".strip() for d, p in zip(day_headers, period_headers)]
+    
+    rows = []
+    for idx, row in df_raw.iloc[5:].iterrows():
+        if pd.isna(row[1]) and not pd.isna(row[0]):
+            continue
+        if pd.isna(row[0]) and pd.isna(row[5]) and pd.isna(row[6]):
+            continue
+            
+        active_times = [schedule_labels[i] for i, val in enumerate(row[10:32]) if val == '✔']
+        
+        rows.append({
+            'code': row[0],
+            'name': row[1],
+            'credit': row[2],
+            'classPerWeek': row[3],
+            'group': str(row[6]) if not pd.isna(row[6]) else "",
+            'instructor': row[5],
+            'enrollment': row[7],
+            'electiveQuantity': str(row[8]) if not pd.isna(row[8]) else "",
+            'updatedElectiveQuantity': str(row[8]) if not pd.isna(row[8]) else "",
+            'classtime': ', '.join(active_times),
+            'classroom': "", 
+            'note': row[9] if not pd.isna(row[9]) else ""
+        })
+        
+    if not rows:
+        return
+
+    df = pd.DataFrame(rows)
+    
+    df[['code', 'name', 'credit', 'classPerWeek']] = df[['code', 'name', 'credit', 'classPerWeek']].ffill()
+    
+    code_to_order = {}
+    curr = 1
+    orders = []
+    for c in df['code']:
+        if c not in code_to_order:
+            code_to_order[c] = curr
+            curr += 1
+        orders.append(code_to_order[c])
+    df['order'] = orders
 
     grouped_df = df.groupby(['order', 'code']).agg({
         'name': 'first',
@@ -57,21 +97,22 @@ def csvToJson(filePath, outputFile, i):
         'note': lambda x: x.tolist() if len(x) > 1 else x.iloc[0],
     }).reset_index()
 
-    grouped_df = grouped_df.sort_values(by='order')
-
+    grouped_df['order'] = pd.to_numeric(grouped_df['order']).astype('Int64')
     json_data = grouped_df.to_json(orient='records', force_ascii=False, default_handler=str, indent=2)
 
     with open(f'{outputFile}.json', 'w', encoding='utf-8') as json_file:
         json_file.write(json_data)
-        print("Succeeded in converting CSV to JSON")
+        print(f"converted {grade_label}")
 
-outDir = '/'
+year_key = "2025/2"
+for i in range(1, 7):
+    grade_key = f"m{i}"
+    if grade_key in linkData[year_key]:
+        url = linkData[year_key][grade_key]
+        csv_path = f'./data/csv/m{i}.csv'
+        json_path = f'./data/json/m{i}'
+        
+        if getGoogleSheet(url, csv_path):
+            csvToJson(csv_path, json_path, grade_key)
 
-for i in range(1,7):
-  filepath = getGoogleSeet(linkData["2023/2"]["sheetID"], linkData["2023/2"][f"m{i}"], f"./data/csv/m{i}.csv")
-  csvToJson(f'./data/csv/m{i}.csv',f'./data/json/m{i}',i)
-
-sys.exit(0); 
-
-
-
+sys.exit(0)
