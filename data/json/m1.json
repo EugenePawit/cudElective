@@ -48,7 +48,7 @@
     "classtime": [
       "อังคาร 1, อังคาร 2",
       "พุธ 7, พุธ 8",
-      "nan 8"
+      "จันทร์ 7, จันทร์ 8"
     ],
     "classroom": [
       "",
@@ -58,7 +58,7 @@
     "note": [
       "",
       "",
-      "✔"
+      ""
     ]
   },
   {
@@ -88,7 +88,7 @@
       ""
     ],
     "classtime": [
-      "nan 8",
+      "จันทร์ 7, จันทร์ 8",
       "พฤหัสบดี 5, พฤหัสบดี 6"
     ],
     "classroom": [
@@ -96,7 +96,7 @@
       ""
     ],
     "note": [
-      "✔",
+      "",
       ""
     ]
   },
@@ -167,7 +167,7 @@
       ""
     ],
     "classtime": [
-      "nan 8",
+      "จันทร์ 8",
       "อังคาร 1",
       "อังคาร 2",
       "พุธ 7"
@@ -376,9 +376,9 @@
     "enrollment": "20",
     "electiveQuantity": "",
     "updatedElectiveQuantity": "",
-    "classtime": "nan 8",
+    "classtime": "จันทร์ 7, จันทร์ 8",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 20,
@@ -391,9 +391,9 @@
     "enrollment": "20",
     "electiveQuantity": "",
     "updatedElectiveQuantity": "",
-    "classtime": "nan 8",
+    "classtime": "จันทร์ 7, จันทร์ 8",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 21,
@@ -648,7 +648,7 @@
     "classtime": [
       "พุธ 8",
       "อังคาร 1",
-      ""
+      "จันทร์ 7"
     ],
     "classroom": [
       "",
@@ -658,7 +658,7 @@
     "note": [
       "",
       "",
-      "✔"
+      ""
     ]
   },
   {
@@ -694,7 +694,7 @@
     ],
     "classtime": [
       "พฤหัสบดี 6",
-      "nan 8",
+      "จันทร์ 8",
       "อังคาร 2"
     ],
     "classroom": [
@@ -735,7 +735,7 @@
       ""
     ],
     "classtime": [
-      "",
+      "จันทร์ 7",
       "พฤหัสบดี 5"
     ],
     "classroom": [
@@ -743,7 +743,7 @@
       ""
     ],
     "note": [
-      "✔",
+      "",
       ""
     ]
   },
@@ -758,9 +758,9 @@
     "enrollment": "35",
     "electiveQuantity": "ไม่จำเป็นต้องมีพื้นฐานภาษา",
     "updatedElectiveQuantity": "ไม่จำเป็นต้องมีพื้นฐานภาษา",
-    "classtime": "nan 8",
+    "classtime": "จันทร์ 7, จันทร์ 8",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 38,
@@ -803,9 +803,9 @@
     "enrollment": "35",
     "electiveQuantity": "ไม่จำเป็นต้องมีพื้นฐานภาษา",
     "updatedElectiveQuantity": "ไม่จำเป็นต้องมีพื้นฐานภาษา",
-    "classtime": "nan 8",
+    "classtime": "จันทร์ 7, จันทร์ 8",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 41,

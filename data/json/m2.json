@@ -27,7 +27,7 @@
     ],
     "classtime": [
       "พุธ 1, พุธ 2",
-      "nan 6"
+      "อังคาร 5, อังคาร 6"
     ],
     "classroom": [
       "",
@@ -35,7 +35,7 @@
     ],
     "note": [
       "",
-      "✔"
+      ""
     ]
   },
   {
@@ -79,9 +79,9 @@
     "enrollment": "18",
     "electiveQuantity": "",
     "updatedElectiveQuantity": "",
-    "classtime": "nan 6",
+    "classtime": "อังคาร 5, อังคาร 6",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 5,
@@ -139,9 +139,9 @@
     "enrollment": "15",
     "electiveQuantity": "เรียนเป็น\nภาษาอังกฤษ",
     "updatedElectiveQuantity": "เรียนเป็น\nภาษาอังกฤษ",
-    "classtime": "nan 6",
+    "classtime": "อังคาร 5, อังคาร 6",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 9,
@@ -321,9 +321,9 @@
     "enrollment": "20",
     "electiveQuantity": "",
     "updatedElectiveQuantity": "",
-    "classtime": "nan 6",
+    "classtime": "อังคาร 5, อังคาร 6",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 19,
@@ -503,7 +503,7 @@
     ],
     "classtime": [
       "พุธ 1, พุธ 2",
-      "nan 6"
+      "อังคาร 5, อังคาร 6"
     ],
     "classroom": [
       "",
@@ -511,7 +511,7 @@
     ],
     "note": [
       "",
-      "✔"
+      ""
     ]
   },
   {
@@ -555,9 +555,9 @@
     "enrollment": "30",
     "electiveQuantity": "",
     "updatedElectiveQuantity": "",
-    "classtime": "nan 6",
+    "classtime": "อังคาร 5, อังคาร 6",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 33,
@@ -637,7 +637,7 @@
     ],
     "classtime": [
       "พุธ 1",
-      "nan 6",
+      "อังคาร 6",
       "พุธ 2"
     ],
     "classroom": [
@@ -683,8 +683,8 @@
       ""
     ],
     "classtime": [
-      "",
-      "nan 6",
+      "อังคาร 5",
+      "อังคาร 6",
       "พฤหัสบดี 6"
     ],
     "classroom": [
@@ -693,7 +693,7 @@
       ""
     ],
     "note": [
-      "✔",
+      "",
       "",
       ""
     ]
@@ -778,9 +778,9 @@
     "enrollment": "35",
     "electiveQuantity": "ไม่จำเป็นต้องมีพื้นฐานภาษา",
     "updatedElectiveQuantity": "ไม่จำเป็นต้องมีพื้นฐานภาษา",
-    "classtime": "nan 6",
+    "classtime": "อังคาร 5, อังคาร 6",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   },
   {
     "order": 42,
@@ -839,7 +839,7 @@
       ""
     ],
     "classtime": [
-      "",
+      "อังคาร 5",
       "ศุกร์ 8"
     ],
     "classroom": [
@@ -847,7 +847,7 @@
       ""
     ],
     "note": [
-      "✔",
+      "",
       ""
     ]
   },
@@ -892,8 +892,8 @@
     "enrollment": "35",
     "electiveQuantity": "เฉพาะนักเรียนกลุ่ม Hi-Ab",
     "updatedElectiveQuantity": "เฉพาะนักเรียนกลุ่ม Hi-Ab",
-    "classtime": "nan 6",
+    "classtime": "อังคาร 5, อังคาร 6",
     "classroom": "",
-    "note": "✔"
+    "note": ""
   }
 ]
